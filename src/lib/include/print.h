@@ -1,4 +1,4 @@
-#include "number.hpp"
+#include "number.h"
 #include <ostream>
 
 using namespace words::numbers;

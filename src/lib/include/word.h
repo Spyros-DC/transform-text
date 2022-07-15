@@ -1,7 +1,7 @@
 #ifndef WORDS_NUMBERS_WORD_HPP
 #define WORDS_NUMBERS_WORD_HPP
 
-#include "order.hpp"
+#include "order.h"
 
 namespace words{
 

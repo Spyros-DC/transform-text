@@ -12,9 +12,11 @@ include_directories(${PROJECT_SOURCE_DIR})
 
 set(TEST_SOURCES 
     factoryTests.cpp
-    ${PROJECT_SOURCE_DIR}/src/print.cpp
-    ${PROJECT_SOURCE_DIR}/src/compose.cpp
-    ${PROJECT_SOURCE_DIR}/src/factory.cpp)
+    composeTests.cpp
+    wordsTests.cpp
+        ../src/lib/src/print.cpp
+        ../src/lib/src/compose.cpp
+        ../src/lib/src/factory.cpp ../src/lib/src/convert.cpp convertTests.cpp)
 
 add_executable(${CMAKE_PROJECT_NAME}Tests  ${TEST_SOURCES})
 

@@ -1,13 +1,13 @@
 #ifndef WORDS_NUMBERS_COMPOSE_HPP
 #define WORDS_NUMBERS_COMPOSE_HPP
 
-#include "number.hpp"
+#include "number.h"
 
 namespace words{
 
     namespace numbers{
 
-        number compose_number_with_word(number num, word word_inst);
+        vec_vec_numbers compose_numbers(const vec_numbers& v_nums);
 
     } // namespace numbers
 } // namespace words

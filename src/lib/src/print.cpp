@@ -1,4 +1,4 @@
-#include "print.hpp"
+#include "src/lib/include/print.h"
 
 std::ostream& operator<<(std::ostream& os, const order& ord) {
     if(ord == order::units)
@@ -28,7 +28,7 @@ std::ostream& operator<<(std::ostream& os, const word& w) {
 std::ostream& operator<<(std::ostream& os, const number& num) {
     os << num.word_inst;
     int idx{1};
-    for(auto elem: num.v_words){
+    for(auto elem: num.v_numbers){
         os << "elem :" << idx << "\n";
         os << elem;
         idx++;
