@@ -1,5 +1,4 @@
 #include <gtest/gtest.h>
-#include <iostream>
 #include "convert.h"
 #include "print.h"
 #include "factory.h"

@@ -27,6 +27,7 @@ namespace text {
             void remove_dashes();
         private:
             std::string str_;
+
             // vector of pairs of {original sub string, replace sub string}
             std::vector<std::pair<std::string, std::string> > pairs_for_replace_;
     };

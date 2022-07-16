@@ -8,7 +8,6 @@ namespace words{
     namespace numbers{
 
         enum class error{
-
             ok=1,
             error
         };

@@ -25,6 +25,10 @@ void file_input() {
     std::getline(std::cin, output_file);
 
     std::ifstream in_stream{input_file};
+    if(!in_stream.is_open()){
+        std::cout << "error on opening file << " << input_file << "\n";
+        return;
+    }
     std::string line;
 
     std::ofstream out_stream{output_file};
