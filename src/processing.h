@@ -23,8 +23,10 @@ namespace text {
             std::string find_substr(const std::string pattern);
 
             std::vector<word> convert_to_words(std::string str);
+
+            void remove_dashes();
         private:
-            const std::string& str_;
+            std::string str_;
             // vector of pairs of {original sub string, replace sub string}
             std::vector<std::pair<std::string, std::string> > pairs_for_replace_;
     };

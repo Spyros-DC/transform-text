@@ -9,6 +9,10 @@ namespace text {
 
     std::vector<std::string> remove_one_character(const std::string& str, char c);
 
+    std::pair<bool, std::string> find_if_stop_word(const std::string maybe_num);
+
+    std::string to_lower_case(std::string str);
+
     std::string replace(const std::string& str, std::string original, std::string replace) {
         return std::regex_replace(str, std::regex(original), replace);
     }
@@ -39,10 +43,37 @@ namespace text {
         return res;
     }
 
+    std::string to_lower_case(std::string str){
+        std::transform(str.begin(), str.end(), str.begin(),
+                       [](unsigned char c){ return std::tolower(c); });
+        return str;
+    }
+
+    std::pair<bool, std::string> find_if_stop_word(const std::string maybe_num) {
+        std::set<char> set_of_stop_chars{'.', '!', ';'};
+
+        if(maybe_num.empty())
+            return {false, maybe_num};
+
+        if(!set_of_stop_chars.count(maybe_num.back()))
+            return {false, maybe_num};
+
+        std::string word{};
+        for(auto character: maybe_num){
+            if(!set_of_stop_chars.count(character))
+                word += character;
+            else
+                break;
+        }
+
+        return {true, word};
+    }
+
     processor::processor(const std::string& str): str_{str} {}
 
     std::string processor::run() {
 
+        this->remove_dashes();
         std::string res{str_};
 
         find_pairs_for_replace();
@@ -68,12 +99,24 @@ namespace text {
         bool is_number{false};
         std::string original_sub_string{};
         std::string replace_sub_string{};
+        bool is_stop_word{false};
 
         while(stream_inst >> maybe_num){
-            if(set_of_number_words.count(maybe_num)){
+            std::string lower_case_maybe_num = to_lower_case(maybe_num);
+
+            if(is_number && lower_case_maybe_num == "and")
+                continue;
+            std::pair<bool, std::string> p_find_stop_word_res = find_if_stop_word(maybe_num);
+            if(p_find_stop_word_res.first){
+                is_stop_word = true;
+                maybe_num = p_find_stop_word_res.second;
+                lower_case_maybe_num = to_lower_case(maybe_num);
+            }
+
+            if(set_of_number_words.count(lower_case_maybe_num)){
                 if(is_number){
                     original_sub_string += " " + maybe_num;
-                    replace_sub_string += " " + maybe_num;
+                    replace_sub_string += " " + lower_case_maybe_num;
                 }else{
                     is_number = true;
                     if(!replace_sub_string.empty())
@@ -81,8 +124,11 @@ namespace text {
                     original_sub_string.clear();
                     replace_sub_string.clear();
                     original_sub_string += " " + maybe_num;
-                    replace_sub_string += " " + maybe_num;
+                    replace_sub_string += " " + lower_case_maybe_num;
                 }
+
+                if(is_stop_word)
+                    is_number = false;
             }else{
                 is_number = false;
             }
@@ -112,7 +158,7 @@ namespace text {
         for(auto elem: v_str){
             str_regex += elem;
             if(idx != size)
-                str_regex += " +";
+                str_regex += " +(and)? ?";
             idx++;
         }
 
@@ -138,6 +184,26 @@ namespace text {
         }
 
         return v_words;
+    }
+
+    void processor::remove_dashes() {
+        std::stringstream str_stream{str_};
+        std::string word{};
+        while(str_stream >> word){
+            auto it = word.find('-');
+
+            if(it == std::string::npos)
+                continue;
+
+            std::string first_part{word.begin(), word.begin() + it};
+            std::string second_part{word.begin() + it + 1, word.end()};
+
+            auto p_res = find_if_stop_word(second_part);
+            std::string set_second_part = p_res.second;
+
+            if(set_of_number_words.count(first_part) && set_of_number_words.count(set_second_part))
+                str_ = replace(str_, word, std::string{first_part+ " " + second_part});
+        }
     }
 
 }// namespace text
