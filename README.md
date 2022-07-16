@@ -49,4 +49,4 @@ There is no need for googletest to be installed on your machine, since the downl
 Run the tests with:
 ```bash
 ./transformTextTests
-``
+```
