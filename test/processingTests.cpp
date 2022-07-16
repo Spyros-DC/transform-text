@@ -52,7 +52,7 @@ TEST(processingSuite, sixth) {
     std::string res{str};
     text::processor processor_inst{str};
 
-    ASSERT_EQ(processor_inst.run(), "Tom is 23 and Laura is 21");
+    ASSERT_EQ(processor_inst.run().second, "Tom is 23 and Laura is 21");
 }
 
 TEST(processingSuite, seventh) {
@@ -60,7 +60,7 @@ TEST(processingSuite, seventh) {
     std::string res{str};
     text::processor processor_inst{str};
 
-    ASSERT_EQ(processor_inst.run(), "Tom is 23 and Laura is 21");
+    ASSERT_EQ(processor_inst.run().second, "Tom is 23 and Laura is 21");
 }
 
 TEST(processingSuite, eighth) {
@@ -68,7 +68,7 @@ TEST(processingSuite, eighth) {
     std::string res{str};
     text::processor processor_inst{str};
 
-    ASSERT_EQ(processor_inst.run(), "123");
+    ASSERT_EQ(processor_inst.run().second, "123");
 }
 
 TEST(processingSuite, ninth) {
@@ -76,7 +76,7 @@ TEST(processingSuite, ninth) {
     std::string res{str};
     text::processor processor_inst{str};
 
-    ASSERT_EQ(processor_inst.run(), "this tree is 123 years old.");
+    ASSERT_EQ(processor_inst.run().second, "this tree is 123 years old.");
 }
 
 TEST(processingSuite, tenth) {
@@ -84,7 +84,7 @@ TEST(processingSuite, tenth) {
     std::string res{str};
     text::processor processor_inst{str};
 
-    ASSERT_EQ(processor_inst.run(), "this tree is 123.");
+    ASSERT_EQ(processor_inst.run().second, "this tree is 123.");
 }
 
 TEST(processingSuite, eleventh) {
@@ -99,7 +99,7 @@ TEST(processingSuite, twelfth) {
     std::string str{"one million two hundred and thirty three thousand four hundred and forty five"};
     text::processor processor_inst{str};
 
-    ASSERT_EQ(processor_inst.run(), "1233445");
+    ASSERT_EQ(processor_inst.run().second, "1233445");
 }
 
 TEST(processingSuite, thirteenth) {
@@ -107,7 +107,7 @@ TEST(processingSuite, thirteenth) {
     std::string str{"One hundred and twenty five. Three."};
     text::processor processor_inst{str};
 
-    ASSERT_EQ(processor_inst.run(), "125. 3.");
+    ASSERT_EQ(processor_inst.run().second, "125. 3.");
 }
 
 TEST(processingSuite, fourteenth) {
@@ -115,5 +115,5 @@ TEST(processingSuite, fourteenth) {
     std::string str{"One hundred and twenty-five."};
     text::processor processor_inst{str};
 
-    ASSERT_EQ(processor_inst.run(), "125.");
+    ASSERT_EQ(processor_inst.run().second, "125.");
 }

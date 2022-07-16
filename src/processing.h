@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 #include "word.h"
+#include "error.h"
 
 namespace text {
 
@@ -14,7 +15,7 @@ namespace text {
         public:
             processor(const std::string& str);
 
-            std::string run();
+            std::pair<error, std::string> run();
 
             void find_pairs_for_replace();
 

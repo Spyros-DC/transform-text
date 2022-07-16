@@ -71,7 +71,7 @@ namespace text {
 
     processor::processor(const std::string& str): str_{str} {}
 
-    std::string processor::run() {
+    std::pair<error, std::string> processor::run() {
 
         this->remove_dashes();
         std::string res{str_};
@@ -88,7 +88,7 @@ namespace text {
             res = replace(res, original_substr, replace_str);
         }
 
-        return res;
+        return {error::ok, res};
     }
 
     void processor::find_pairs_for_replace() {

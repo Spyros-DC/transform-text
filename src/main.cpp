@@ -10,7 +10,13 @@ void terminal_input() {
         std::getline(std::cin, str);
         if (str == "exit")
             break;
-        std::cout << text::processor{str}.run() << "\n";
+        auto p_res = text::processor{str}.run();
+        if(p_res.first == words::numbers::error::ok) {
+            std::cout << p_res.second << "\n";
+        }else{
+            std::cout << "error on processing text" << "\n";
+            break;
+        }
     }
 }
 
@@ -33,7 +39,13 @@ void file_input() {
 
     std::ofstream out_stream{output_file};
     while( std::getline(in_stream, line) ){
-        out_stream << text::processor{line}.run() << "\n";
+        auto p_res = text::processor{str}.run();
+        if(p_res.first == words::numbers::error::ok) {
+            out_stream << p_res.second << "\n";
+        }else{
+            std::cout << "error on processing text" << "\n";
+            break;
+        }
     }
 
 }
