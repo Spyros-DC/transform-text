@@ -16,26 +16,11 @@ TEST(processingSuite, first) {
 }
 
 TEST(processingSuite, second) {
-    std::string str{"twenty-two"};
-    auto res = text::remove_one_character(str, '-');
-    ASSERT_EQ( res.size(), 2);
-    ASSERT_EQ( res[0], "twenty");
-    ASSERT_EQ( res[1], "two");
-}
 
-TEST(processingSuite, third) {
-    std::string str{"twenty--two"};
-    auto res = text::remove_one_character(str, '-');
-    ASSERT_EQ( res.size(), 1);
-    ASSERT_EQ( res[0], "twenty--two");
-}
+    std::string str{"Zero costs."};
+    text::processor processor_inst{str};
 
-TEST(processingSuite, fourth) {
-    std::string str{"twenty.two"};
-    auto res = text::remove_one_character(str, '.');
-    ASSERT_EQ( res.size(), 2);
-    ASSERT_EQ( res[0], "twenty");
-    ASSERT_EQ( res[1], "two");
+    ASSERT_EQ(processor_inst.run().second, "0 costs.");
 }
 
 TEST(processingSuite, fifth) {
@@ -64,7 +49,7 @@ TEST(processingSuite, seventh) {
 }
 
 TEST(processingSuite, eighth) {
-    std::string str{"one hundred twenty three"};
+    std::string str{"one hundred twenty-three"};
     std::string res{str};
     text::processor processor_inst{str};
 
@@ -72,7 +57,7 @@ TEST(processingSuite, eighth) {
 }
 
 TEST(processingSuite, ninth) {
-    std::string str{"this tree is one hundred twenty three years old."};
+    std::string str{"this tree is one hundred twenty-three years old."};
     std::string res{str};
     text::processor processor_inst{str};
 
@@ -80,7 +65,7 @@ TEST(processingSuite, ninth) {
 }
 
 TEST(processingSuite, tenth) {
-    std::string str{"this tree is one hundred and twenty three."};
+    std::string str{"this tree is one hundred and twenty-three."};
     std::string res{str};
     text::processor processor_inst{str};
 
@@ -96,7 +81,7 @@ TEST(processingSuite, eleventh) {
 
 TEST(processingSuite, twelfth) {
 
-    std::string str{"one million two hundred and thirty three thousand four hundred and forty five"};
+    std::string str{"one million two hundred and thirty-three thousand four hundred and forty-five"};
     text::processor processor_inst{str};
 
     ASSERT_EQ(processor_inst.run().second, "1233445");

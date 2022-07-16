@@ -7,40 +7,12 @@ namespace text {
 
     std::string replace(const std::string& str, std::string original, std::string replace);
 
-    std::vector<std::string> remove_one_character(const std::string& str, char c);
-
     std::pair<bool, std::string> find_if_stop_word(const std::string maybe_num);
 
     std::string to_lower_case(std::string str);
 
     std::string replace(const std::string& str, std::string original, std::string replace) {
         return std::regex_replace(str, std::regex(original), replace);
-    }
-
-    std::vector<std::string> remove_one_character(const std::string& str, const char c) {
-
-        std::vector<std::string> res{str};
-        bool found_once{false};
-        bool found_twice{false};
-
-        int found_idx{0};
-        int idx{0};
-        for(auto character: str){
-            if(character == c){
-                if(found_once){
-                    found_twice = true;
-                }else{
-                    found_once = true;
-                    found_idx = idx;
-                }
-            }
-            idx++;
-        }
-
-        if(found_once && !found_twice)
-            res = {{str.begin(), str.begin() + found_idx},  {str.begin() + found_idx + 1, str.end()}};
-
-        return res;
     }
 
     std::string to_lower_case(std::string str){
@@ -76,16 +48,23 @@ namespace text {
         this->remove_dashes();
         std::string res{str_};
 
-        find_pairs_for_replace();
+        this->find_pairs_for_replace();
 
-        for(auto p_str: pairs_for_replace_){
-            std::string original_substr = find_substr(p_str.first);
-            auto words = convert_to_words(p_str.second);
-            auto pair_res = convert_words_to_nums(words);
+        for(auto replace_elem: pairs_for_replace_){
+
+            std::string original_substr = this->find_substr(replace_elem.first);
+            if(original_substr.empty())
+                return {error::error, {}};
+
+            auto words = this->convert_to_words(replace_elem.second);
+            auto pair_error_nums = convert_words_to_nums(words);
+
             std::string replace_str{};
-            for(auto elem: pair_res.second)
+            for(auto elem: pair_error_nums.second)
                 replace_str += std::to_string( convert_vec_of_nums_to_num(elem) );
+
             res = replace(res, original_substr, replace_str);
+
         }
 
         return {error::ok, res};
@@ -190,13 +169,13 @@ namespace text {
         std::stringstream str_stream{str_};
         std::string word{};
         while(str_stream >> word){
-            auto it = word.find('-');
+            auto idx = word.find('-');
 
-            if(it == std::string::npos)
+            if(idx == std::string::npos)
                 continue;
 
-            std::string first_part{word.begin(), word.begin() + it};
-            std::string second_part{word.begin() + it + 1, word.end()};
+            std::string first_part{word.begin(), word.begin() + idx};
+            std::string second_part{word.begin() + idx + 1, word.end()};
 
             auto p_res = find_if_stop_word(second_part);
             std::string set_second_part = p_res.second;
