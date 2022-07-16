@@ -18,17 +18,13 @@ namespace words{
             case order::units:
             case order::tens:
                 return small_order_factory(word_inst, v_nums);
-                break;
             case order::hundreds:
             case order::thousands:
             case order::millions:
             case order::billions:
                 return large_order_factory(word_inst, v_nums);
-                break;
-            
             default:
                 return {error::error, {}};
-                break;
             }
 
         }
