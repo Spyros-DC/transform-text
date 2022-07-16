@@ -8,16 +8,14 @@ FetchContent_Declare(
 
 FetchContent_MakeAvailable(googletest)
 
-include_directories(${PROJECT_SOURCE_DIR})
-
 set(TEST_SOURCES 
     factoryTests.cpp
     composeTests.cpp
+    convertTests.cpp
     wordsTests.cpp
-        ../src/lib/src/print.cpp
-        ../src/lib/src/compose.cpp
-        ../src/lib/src/factory.cpp ../src/lib/src/convert.cpp convertTests.cpp)
+    configTests.cpp
+    processingTests.cpp)
 
 add_executable(${CMAKE_PROJECT_NAME}Tests  ${TEST_SOURCES})
 
-target_link_libraries(${CMAKE_PROJECT_NAME}Tests gtest_main)
+target_link_libraries(${CMAKE_PROJECT_NAME}Tests gtest_main small_lib)

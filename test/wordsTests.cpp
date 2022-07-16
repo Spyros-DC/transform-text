@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
-#include "src/lib/include/compose.h"
-#include "src/lib/include/factory.h"
+#include "compose.h"
+#include "factory.h"
 
 using namespace words::numbers;
 

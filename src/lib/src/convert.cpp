@@ -1,4 +1,6 @@
-#include "src/lib/include/convert.h"
+#include "convert.h"
+#include "factory.h"
+#include "compose.h"
 
 namespace words{
 
@@ -31,14 +33,14 @@ namespace words{
             return (to_num(word_inst.order_inst) * word_inst.value);
         }
 
-        long long convert_to_num(const vec_numbers& v_nums) {
+        long long convert_vec_of_nums_to_num(const vec_numbers& v_nums) {
             long long res{0};
 
             for(const auto& num: v_nums){
 
                 long long loop_res{to_num(num.word_inst)};
 
-                long long internal_res = convert_to_num(num.v_numbers);
+                long long internal_res = convert_vec_of_nums_to_num(num.v_numbers);
 
                 if(internal_res)
                     loop_res *= internal_res;
@@ -47,6 +49,20 @@ namespace words{
             }
 
             return res;
+        }
+
+        std::pair<error, vec_vec_numbers> convert_words_to_nums(const std::vector<word>& v_words) {
+
+            vec_numbers v_nums{};
+
+            for(const auto& w: v_words){
+                auto loop_res = number_factory(w, v_nums);
+                if(loop_res.first != error::ok)
+                    return {error::error, {}};
+                v_nums = loop_res.second;
+            }
+
+            return {error::ok, compose_numbers(v_nums)};
         }
 
     } // namespace numbers

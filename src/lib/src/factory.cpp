@@ -1,4 +1,4 @@
-#include "src/lib/include/factory.h"
+#include "factory.h"
 
 namespace words{
 

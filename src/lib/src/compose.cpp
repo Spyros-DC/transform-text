@@ -1,4 +1,4 @@
-#include "src/lib/include/compose.h"
+#include "compose.h"
 
 namespace words{
 

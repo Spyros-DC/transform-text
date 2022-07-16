@@ -1,9 +1,9 @@
 #include <gtest/gtest.h>
 #include <iostream>
-#include "src/lib/include/convert.h"
-#include "src/lib/include/print.h"
-#include "src/lib/include/factory.h"
-#include "src/lib/include/compose.h"
+#include "convert.h"
+#include "print.h"
+#include "factory.h"
+#include "compose.h"
 
 using namespace words::numbers;
 
@@ -28,8 +28,8 @@ TEST(convertSuite, first) {
     vec_vec_numbers res = compose_numbers(v_nums);
 
     ASSERT_EQ(res.size(), 2);
-    ASSERT_EQ(convert_to_num(res[0]), (900*1000*1000+2));
-    ASSERT_EQ(convert_to_num(res[1]), (2));
+    ASSERT_EQ(convert_vec_of_nums_to_num(res[0]), (900 * 1000 * 1000 + 2));
+    ASSERT_EQ(convert_vec_of_nums_to_num(res[1]), (2));
 }
 
 TEST(convertSuite, second) {
@@ -50,7 +50,7 @@ TEST(convertSuite, second) {
     vec_vec_numbers res = compose_numbers(v_nums);
 
     ASSERT_EQ(res.size(), 1);
-    ASSERT_EQ(convert_to_num(res[0]), (902));
+    ASSERT_EQ(convert_vec_of_nums_to_num(res[0]), (902));
 }
 
 TEST(convertSuite, third) {
@@ -75,5 +75,5 @@ TEST(convertSuite, third) {
     vec_vec_numbers res = compose_numbers(v_nums);
 
     ASSERT_EQ(res.size(), 1);
-    ASSERT_EQ(convert_to_num(res[0]), (222035));
+    ASSERT_EQ(convert_vec_of_nums_to_num(res[0]), (222035));
 }

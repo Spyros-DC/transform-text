@@ -1,7 +1,7 @@
 #include <gtest/gtest.h>
 #include <iostream>
-#include "src/lib/include/compose.h"
-#include "src/lib/include/print.h"
+#include "compose.h"
+#include "print.h"
 
 using namespace words::numbers;
 
