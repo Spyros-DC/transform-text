@@ -30,7 +30,16 @@ The second part is the processing part where from the text the program extracts 
 and from those sub-strings, lists of 'word' structs are created and are passed as input to the lib.
 
 # Build
-The build system is CMake. The executables are 'transformText' for the main app, 'transformTextTests' for the tests and a static lib 'libsmall_lib.a'.
+The build system is CMake. 
+
+For all machines that support CMake >= 3.14, you can build the program from the root of the project with:
+```bash
+mkdir build
+cd build
+cmake ..
+cmake --build .
+```
+The executables are 'transformText' for the main app, 'transformTextTests' for the tests and a static lib 'libsmall_lib.a'.
 
 # Usage
 Run the app with:
